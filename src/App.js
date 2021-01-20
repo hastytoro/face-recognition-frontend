@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Particles from 'react-particles-js';
+import Clarifai from 'clarifai';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Navigation from './components/Navigation/Navigation';
 import Signin from './components/Signin/Signin';
@@ -8,8 +9,6 @@ import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import './App.css';
-import Clarifai from 'clarifai';
-// const Clarifai = require('clarifai');ss
 
 const app = new Clarifai.App({
   apiKey: '493e67505bb540e6a9260362870e1f5a',
@@ -18,8 +17,7 @@ const app = new Clarifai.App({
 const particleOptions = {
   particles: {
     number: {
-      // value: 80,
-      value: 2,
+      value: 80,
       density: {
         enable: true,
         value_area: 800,

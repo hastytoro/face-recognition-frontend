@@ -1,10 +1,14 @@
 import React from 'react';
+import './Rank.css';
 
 const Rank = ({ name, entries }) => {
   return (
-    <div>
-      <div className="white f3">{`${name}, your current rank is...`}</div>
-      <div className="white f1">{entries}</div>
+    <div className="center">
+      <div>
+        <h1 className="f2-ns mt0">{`${name}`}</h1>
+        <h2 className="fw6 f3 lh-copy mb3 white">{`You have used this service: ${entries} times.`}</h2>
+      </div>
+      {/* <div className="white f2">{entries}</div> */}
     </div>
   );
 };

@@ -26,26 +26,28 @@ const particleOptions = {
   },
 };
 
+const initialState = {
+  input: '',
+  imageUrl: '',
+  box: {},
+  route: 'signin',
+  isSignedIn: false,
+  user: {
+    id: '',
+    name: '',
+    email: '',
+    entries: 0,
+    joined: '',
+  },
+};
+
 class App extends Component {
   constructor() {
     super();
-    this.state = {
-      input: '',
-      imageUrl: '',
-      box: {},
-      route: 'signin',
-      isSignedIn: false,
-      user: {
-        id: '',
-        name: '',
-        email: '',
-        entries: 0,
-        joined: '',
-      },
-    };
+    this.state = initialState;
   }
 
-  loadUser = data => {
+  loadUserHandler = data => {
     this.setState({
       user: {
         id: data.id,
@@ -57,7 +59,7 @@ class App extends Component {
     });
   };
 
-  calcFaceLocation = data => {
+  calcFaceLocationHandler = data => {
     const face = data.outputs[0].data.regions[0].region_info.bounding_box;
     const image = document.getElementById('inputImage');
     const width = Number(image.width);
@@ -70,7 +72,7 @@ class App extends Component {
     };
   };
 
-  displayFaceBox = box => this.setState({ box: box });
+  displayFaceBoxHandler = box => this.setState({ box: box });
 
   onInputChangeHandler = event => this.setState({ input: event.target.value });
 
@@ -90,16 +92,17 @@ class App extends Component {
             .then(response => response.json())
             .then(count => {
               this.setState(Object.assign(this.state.user, { entries: count }));
-            });
+            })
+            .catch(error => console.log);
         }
-        this.displayFaceBox(this.calcFaceLocation(response));
+        this.displayFaceBoxHandler(this.calcFaceLocationHandler(response));
       })
-      .catch(error => console.log(error));
+      .catch(console.log);
   };
 
   onRouteChangeHandler = route => {
     if (route === 'signout') {
-      this.setState({ isSignedIn: false });
+      this.setState(initialState);
     } else if (route === 'home') {
       this.setState({ isSignedIn: true });
     }
@@ -130,12 +133,12 @@ class App extends Component {
           </div>
         ) : route === 'signin' ? (
           <Signin
-            loadUser={this.loadUser}
+            loadUser={this.loadUserHandler}
             onRouteChange={this.onRouteChangeHandler}
           />
         ) : (
           <Register
-            loadUser={this.loadUser}
+            loadUser={this.loadUserHandler}
             onRouteChange={this.onRouteChangeHandler}
           />
         )}

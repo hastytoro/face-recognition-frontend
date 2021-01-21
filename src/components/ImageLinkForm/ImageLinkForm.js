@@ -4,9 +4,8 @@ import './ImageLinkForm.css';
 const ImageLinkForm = props => {
   return (
     <div>
-      <p className="f3">
-        {'This magic brain will detect faces in your pictures.'}
-      </p>
+      <p className="fw3 f5">{'Provide a image address below.'}</p>
+      {/* <p className="f4">{'When ready, click detect.'}</p> */}
       <div className="center hide-child">
         <div className="form center pa4 br3 shadow-5">
           <input
